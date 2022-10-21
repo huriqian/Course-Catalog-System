@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hdu.variant1.mapper.SystemUserMapper">
+    <!-- Integer registerSysUser(SystemUser systemUser); -->
+    <insert id="registerSysUser">
+        INSERT INTO sys_user (id, account, password, identity, status) VALUES (null, #{account}, #{password}, #{identity}, #{status})
+    </insert>
+
+    <!-- Integer updatePasswordByUserId(String uId, String password); -->
+    <update id="updatePasswordByUserId">
+        UPDATE sys_user SET password = #{password} WHERE account = #{uId}
+    </update>
+
+    <!-- Integer updateSystemUserIdentity(String uId, Integer identity); -->
+    <update id="updateSystemUserIdentity">
+        UPDATE sys_user SET identity = #{identity} WHERE account = #{uId}
+    </update>
+
+    <!-- Integer countAccountExisted(String uId); -->
+    <select id="countAccountExisted" resultType="java.lang.Integer">
+        SELECT COUNT(account) FROM sys_user WHERE account = #{uId}
+    </select>
+
+    <!-- String getPasswordByAccount(String uId); -->
+    <select id="getPasswordByAccount" resultType="java.lang.String">
+        SELECT password FROM sys_user WHERE account = #{uId}
+    </select>
+
+    <!-- Integer getAuthStatusByUserId(String uId); -->
+    <select id="getAuthIdentityByUserId" resultType="java.lang.Integer">
+        SELECT identity FROM sys_user WHERE account = #{uId}
+    </select>
+
+    <!-- List<SystemUser> getAllSystemUser(); -->
+    <select id="getAllSystemUser" resultType="edu.hdu.variant1.bean.SystemUser">
+        SELECT * FROM sys_user WHERE identity = 1 OR identity = 2
+    </select>
+
+</mapper>
